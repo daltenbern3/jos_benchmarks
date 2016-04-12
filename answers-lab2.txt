@@ -1,0 +1,29 @@
+Darrington Altenbern
+
+Question 1: x would be of type uintptr_t because it handles virtual addresses at this point.
+
+Question 2:
+Entry	Base Virtual Address	Points to (logically)
+1023	0xffc00000	        Page table for top 4MB of phys memory
+1022	0xff800000	        Page table for next 4MB of phys memory
+960	0xf0000000	        Page table for first 4MB of KERNBASE
+959	0xefc00000	        MMIOLIM
+958	0xef800000	        ULIM/MMIOBASE
+957     0xef400000              UVPT
+956     0xef000000              UPAGES
+955     0xeec00000              UTOP
+954     0xeebfe000              USTACKTOP
+2	0x00800000	        UTEXT
+1	0x00400000	        UTEMP
+0	0x00000000	        Empty Space
+
+Question 3:user programs will not be able to read or write the kernels memory because of the permission flags that we have set when mapping the memory. These flags tell the processor what areas can be used and what cant by kernel and users. 
+
+Question 4: can support 256MB of memory. Because we have mapped the kernel between 0xf0000000 and 0xffffffff (256MB long), there is no way to reference address greater than 4 GB.
+
+Question 5: Breakdown:
+        786432 bytes struct Pages
+	  4096 bytes one page directory
+	262144 bytes 64 page tables
+	------------
+	1052672 bytes (~1MB)

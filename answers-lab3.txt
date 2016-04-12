@@ -1,0 +1,8 @@
+Questions:
+
+1. The reason we have this is because we want to be able to put the specific trap number on the stack, and also know whether or not we need to add a 0 error code to the stack.
+2. In order to get this working I had to add some code to the trap dispatch section. I made it change the trapno if the trap was a page fault.
+3. Whether or not it gives a general protection fault or a breakpoint exception depends on how you set up your SETGATE call. When you call SETGATE you have to give a permissions value. If you give it 3, then the user will be able to use the breakpoint exception. if you go lower, then it will give you general protection because the user isn't supposed to have access to that interupt.
+4. The point of these mechanisms is to keep the user from using certain interupts that are reserved from the kernel.
+
+I did the challenge to continue execution. There are two commands I added. The first is 'continue', which when used continues the execution of the user program. and then I also added step, which executes one instruction at a time. 

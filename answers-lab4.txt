@@ -1,0 +1,6 @@
+Questions:
+1. the purpose of the MSBOOTPHYS macro is to get the absolute address of its symbols. This is necessary in mpentry.S and not boot.S because mpentry uses a different address space than the linker uses. This makes it so that it uses the correct address space when looking up its symbols.
+2. you still need to have separate CPU stacks because when entering the kernel, a trapframe is put on the stack. if there ends up being another process that enters, then it will put its trapframe on the stack. If the stack was the same then one CPU might pop the wrong trapframe.
+3. the pointer e can be dereferenced before and after because the environment data is above UTOP. Every other user directory is the exact same above UTOP, which is why it can be dereferenced in both situations.
+4. The registers need to be saved because the process running in the environment uses those registers and in order to work properly the registers must contain the correct values. This is done using a trapframe, which stores all of the register info.
+
