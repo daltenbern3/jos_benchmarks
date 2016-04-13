@@ -41,7 +41,10 @@ enum {
 // Special environment types
 enum EnvType {
   ENV_TYPE_USER = 0,
+  ENV_TYPE_TIME,
 };
+
+struct Env* ticker;
 
 struct Env {
   struct Trapframe env_tf;              // Saved registers
@@ -65,7 +68,9 @@ struct Env {
   uint32_t env_ipc_value;               // Data value sent to us
   envid_t env_ipc_from;                 // envid of the sender
   int env_ipc_perm;                     // Perm of page mapping received
-  uint32_t estRunTime;
+
+  //Benchmark Additions
+  uint32_t estRunTime;                  // Estimated Runtime Given by Program
 };
 
 #endif  // !JOS_INC_ENV_H

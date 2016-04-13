@@ -21,6 +21,8 @@ static struct Env *env_free_list;       // Free environment list
 
 #define ENVGENSHIFT     12              // >= LOGNENV
 
+struct Env* ticker;
+
 // Global descriptor table.
 //
 // Set up global descriptor table (GDT) with separate segments for
@@ -537,6 +539,8 @@ env_run(struct Env *e)
   if(curenv != NULL){
     curenv->env_status = ENV_RUNNABLE;
   }
+  if(e->env_type == ENV_TYPE_TIME)
+    ticker = e;  
   curenv = e;
   e->env_status = ENV_RUNNING;
   e->env_runs++;

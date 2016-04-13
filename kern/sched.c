@@ -6,6 +6,8 @@
 #include <kern/monitor.h>
 #include <time.h>
 
+struct Env* ticker;
+
 void sched_halt(void);
 
 // Choose a user environment to run and run it.
@@ -32,6 +34,8 @@ sched_yield(void)
   // LAB 4: Your code here.
   struct Env* env = thiscpu->cpu_env;
   int curEnvIndex,i;
+  if(ticker->env_status == ENV_RUNNABLE)
+    env_run(ticker);
   if(env == 0){
     curEnvIndex = -1;
   }else{

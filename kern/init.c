@@ -59,6 +59,8 @@ i386_init(void)
 
   // Starting non-boot CPUs
   boot_aps();
+  
+  ENV_CREATE(user_hello, ENV_TYPE_TIME);
 
 #if defined(TEST)
   // Don't touch -- used by grading script!
